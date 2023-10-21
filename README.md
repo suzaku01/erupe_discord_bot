@@ -12,7 +12,7 @@ This is a discord bot for erupe.
 - Run `pip install Flask`.
 
 # Edit `start.py`
--Bot token goes to line 7,43,54
--Discord server ID goes to line 8
--Discord channel ID goes to line 9
--Admin user id(s) goes to line 12,13...
+-Bot token goes to line 7,43,54  
+-Discord server ID goes to line 8  
+-Discord channel ID goes to line 9  
+-Admin user id(s) goes to line 12,13...  
