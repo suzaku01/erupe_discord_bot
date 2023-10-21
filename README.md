@@ -9,10 +9,13 @@ This is a discord bot for erupe.
 - Place `main.go` to root folder.
 - Place `sys_session.go` to `server/channelserver`.
 - Place `app.py` and `start.py` to somewhere you want.
-- Run `pip install Flask`.
+- Run `pip install Flask` to install Flask.
 
 # Edit `start.py`
 -Bot token goes to line 7,43,54  
 -Discord server ID goes to line 8  
 -Discord channel ID goes to line 9  
 -Admin user id(s) goes to line 12,13...  
+
+# Usage
+Run both `app.py` and `start.py`, then run your erupe.
