@@ -18,4 +18,8 @@ This is a discord bot for erupe.
 -Admin user id(s) goes to line 12,13...  
 
 # Usage
-Run both `app.py` and `start.py`, then run your erupe.
+Run both `app.py` and `start.py`, then run your erupe.  
+
+Server updates channel name per 1min, but due to API limits, it may take more longer(3-4min sometimes).  
+
+To stream text, use `/adminmessage` command. Example: /adminmessage test message  
