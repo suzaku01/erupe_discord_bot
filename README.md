@@ -6,8 +6,7 @@ This is a discord bot for erupe.
 - Stream text to all players.
 
 # Installation
-- Place `main.go` to root folder.
-- Place `sys_session.go` to `server/channelserver`.
+
 - Place `app.py` and `start.py` to somewhere you want.
 - Run `pip install Flask` to install Flask.
 
