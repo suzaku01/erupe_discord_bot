@@ -26,30 +26,3 @@ func (s *Session) Start() {
 	}
 	defer resp.Body.Close()
 }
-
-
-func (s *Session) recvLoop() {
-	for {
-		if time.Now().Add(-30 * time.Second).After(s.lastPacket) {
-			logoutPlayer(s)
-			return
-		}
-		if s.closed {
-			logoutPlayer(s)
-			return
-		}
-		pkt, err := s.cryptConn.ReadPacket()
-		if err == io.EOF {
-			s.logger.Info(fmt.Sprintf("[%s] Disconnected", s.Name))		
-			logoutPlayer(s)
-			return
-		}
-		if err != nil {
-			s.logger.Warn("Error on ReadPacket, exiting recv loop", zap.Error(err))
-			logoutPlayer(s)
-			return
-		}
-		s.handlePacketGroup(pkt)
-		time.Sleep(10 * time.Millisecond)
-	}
-}
