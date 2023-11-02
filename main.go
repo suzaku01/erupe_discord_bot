@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"encoding/json"
+	"database/sql"
 )
 
 func main() {
@@ -17,6 +18,11 @@ func main() {
 //add this
 func RunMessageBot(channels []*channelserver.Server) {	
     http.HandleFunc("/send", makeReceiveMessageHandler(channels))
+	http.HandleFunc("/isalive", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		fmt.Fprintf(w, "Server is alive!")
+	})
+	http.HandleFunc("/getplayers", GetPlayersHandler)
 	
 	log.Println("Server started on: http://localhost:9999")	//change here
 	err1 := http.ListenAndServe(":9999", nil)
@@ -25,7 +31,6 @@ func RunMessageBot(channels []*channelserver.Server) {
 	}
 }
 
-//add this
 func makeReceiveMessageHandler(channels []*channelserver.Server) http.HandlerFunc {
     return func(w http.ResponseWriter, r *http.Request) {
 	var data map[string]string
@@ -48,5 +53,33 @@ func makeReceiveMessageHandler(channels []*channelserver.Server) http.HandlerFun
 			for _, c := range channels {
 				c.BroadcastChatMessage(message)
 			}
+			
 }
+}
+
+func GetPlayersHandler(w http.ResponseWriter, r *http.Request) {
+
+	db, err := sql.Open("postgres", "host=localhost user=postgres password=password dbname=erupe sslmode=disable")
+	if err != nil {
+		log.Fatal("Failed to open database:", err)
+	}
+	defer db.Close()
+
+	var totalPlayers int
+	query := "SELECT SUM(current_players) FROM servers"
+	err = db.QueryRow(query).Scan(&totalPlayers)
+	if err != nil {
+		log.Fatal("Failed to execute query:", err)
+	}
+
+	// レスポンスとして JSON を返します。
+	responseData := map[string]int{"totalPlayers": totalPlayers}
+	jsonResponse, err := json.Marshal(responseData)
+	if err != nil {
+		http.Error(w, "Failed to generate JSON", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonResponse)
 }
