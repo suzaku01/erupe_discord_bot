@@ -25,4 +25,7 @@ Server updates channel name per 1min, but due to API limits, it may take more lo
 
 To stream text, use `/adminmessage` command. Example: /adminmessage test message. 
 
-Use `/seehelp` to see all commands.
+Added /restart command to restart erupe when it's crashed or dead. Do not use this while it's alive.  
+Added /isalive command to check if the server is running or not.  
+Added /seehelp command to see all bot command.  
+ 
