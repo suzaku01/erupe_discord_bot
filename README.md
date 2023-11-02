@@ -15,8 +15,10 @@ This is a discord bot for erupe.
 - Run `pip install requests`.  
 
 # Edit `start.py`
--Bot token goes to line 8,48
+- Bot token goes to line 8,48
 
+# Edit `main.go`
+- Change SQL password.
 
 # Usage
 Run `start.py`, then run your erupe.  
